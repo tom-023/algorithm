@@ -3,31 +3,46 @@ package main
 import "fmt"
 
 func main() {
-	list := []int{6, 34, 12, 2, 35, 3, 8, 4, 15, 31}
-
+	list := []int{6, 34, 12, 2, 35, 3, 8, 4, 15, 31, 60, 54}
+	// ヒープを構築
 	buildHeap(list...)
+
+	fmt.Printf("初期のヒープ構築---------------------------\n")
+	fmt.Printf("%v\n", list)
+	fmt.Printf("初期のヒープ構築---------------------------\n")
 
 	n := len(list) - 1
 	for i := 0; i < n; i++ {
-		heapify(0, n-i, list...)
-		// 先頭と末尾の要素を入れ替える
+		// 最も大きい数値の先頭と末尾の要素を入れ替える（根を取り出し、一番最後の要素を根にセットする）
 		list[0], list[n-i] = list[n-i], list[0]
-		fmt.Printf("---------------------------\n")
-		fmt.Printf("list: %v\n", list)
-		fmt.Printf("---------------------------\n")
+
+		fmt.Printf("Before Heap---------------------------\n")
+		fmt.Printf("%v\n", list)
+		fmt.Printf("Before Heap---------------------------\n")
+
+		// ヒープを再構築
+		heapify(0, n-i, list...)
+
+		fmt.Printf("After Heap---------------------------\n")
+		fmt.Printf("%v\n", list)
+		fmt.Printf("After Heap---------------------------\n")
+
 	}
 
 	fmt.Println(list)
 }
 
 func buildHeap(list ...int) {
-	n := len(list) / 2 // ヒープの深さ
-	for i := 0; i < n; i++ {
-		heapify(i, len(list), list...)
+	n := len(list)/2 - 1 // 一番最後の親の保管場所
+
+	// ヒープを構築する（一番最後の親から一番上の親（根）の順で検証する）
+	for ; n >= 0; n-- {
+		fmt.Printf("---------------------------\n")
+		fmt.Printf("親 %v のソート\n", list[n])
+		fmt.Printf("---------------------------\n")
+
+		heapify(n, len(list), list...)
 	}
-	fmt.Printf("buildHeap---------------------------\n")
-	fmt.Printf("list: %v\n", list)
-	fmt.Printf("buildHeap---------------------------\n")
 }
 
 func heapify(parentNum int, listSize int, list ...int) {
@@ -38,20 +53,21 @@ func heapify(parentNum int, listSize int, list ...int) {
 	*/
 	largest := parentNum
 	childLeft := parentNum*2 + 1
-	childRight := childLeft + 1
+	childRight := parentNum*2 + 2
 
 	// 親と左子を比較し、子の方が大きかったら親と子を入れ替える
-	if childLeft < listSize && list[childLeft] > list[largest] {
+	if (childLeft < listSize) && (list[childLeft] > list[largest]) {
 		largest = childLeft
 	}
 
-	if childRight < listSize && list[childRight] > list[largest] {
+	if (childRight < listSize) && (list[childRight] > list[largest]) {
 		largest = childRight
 	}
 
 	if largest != parentNum {
 		// 親と子の値を入れ替える
 		list[parentNum], list[largest] = list[largest], list[parentNum]
-		heapify(0, listSize, list...)
+
+		heapify(largest, listSize, list...)
 	}
 }
