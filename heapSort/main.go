@@ -33,7 +33,7 @@ func main() {
 }
 
 func buildHeap(list ...int) {
-	n := len(list)/2 - 1 // 一番最後の親の保管場所
+	n := len(list)/2 - 1 // 一番最後の親の添字
 
 	// ヒープを構築する（一番最後の親から一番上の親（根）の順で検証する）
 	for ; n >= 0; n-- {
@@ -60,12 +60,13 @@ func heapify(parentNum int, listSize int, list ...int) {
 		largest = childLeft
 	}
 
+	// （親 or 左子）と右子を比較し、右子の方が大きかったらlargestに右子の添字を設定する
 	if (childRight < listSize) && (list[childRight] > list[largest]) {
 		largest = childRight
 	}
 
 	if largest != parentNum {
-		// 親と子の値を入れ替える
+		// 親より子の方が大きいため、親と子の値を入れ替える
 		list[parentNum], list[largest] = list[largest], list[parentNum]
 
 		heapify(largest, listSize, list...)
