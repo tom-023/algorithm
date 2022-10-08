@@ -9,10 +9,10 @@ import (
 func main() {
 	list := random.RangeInt(2, 100, 10)
 	fmt.Println(list)
-	fmt.Println(insertionSort(list...))
+	fmt.Println(insertionSort(list))
 }
 
-func insertionSort(list ...int) []int {
+func insertionSort(list []int) []int {
 	n := len(list)
 
 	for i := 1; i < n; i++ {

@@ -8,10 +8,10 @@ import (
 
 func main() {
 	list := random.RangeInt(2, 100, 10)
-	fmt.Println(selectSort(list...))
+	fmt.Println(selectSort(list))
 }
 
-func selectSort(list ...int) []int {
+func selectSort(list []int) []int {
 	n := len(list)
 
 	for i := range list {

@@ -10,7 +10,7 @@ func main() {
 	// list := []int{6, 34, 12, 2, 35, 3, 8, 4, 15, 31, 60, 54}
 	list := random.RangeInt(2, 100, 10)
 	// ヒープを構築
-	buildHeap(list...)
+	buildHeap(list)
 
 	fmt.Printf("初期のヒープ構築---------------------------\n")
 	fmt.Printf("%v\n", list)
@@ -26,7 +26,7 @@ func main() {
 		fmt.Printf("Before Heap---------------------------\n")
 
 		// ヒープを再構築
-		heapify(0, n-i, list...)
+		heapify(0, n-i, list)
 
 		fmt.Printf("After Heap---------------------------\n")
 		fmt.Printf("%v\n", list)
@@ -37,7 +37,7 @@ func main() {
 	fmt.Println(list)
 }
 
-func buildHeap(list ...int) {
+func buildHeap(list []int) {
 	n := len(list)/2 - 1 // 一番最後の親の添字
 
 	// ヒープを構築する（一番最後の親から一番上の親（根）の順で検証する）
@@ -46,11 +46,11 @@ func buildHeap(list ...int) {
 		fmt.Printf("親 %v のソート\n", list[n])
 		fmt.Printf("---------------------------\n")
 
-		heapify(n, len(list), list...)
+		heapify(n, len(list), list)
 	}
 }
 
-func heapify(parentNum int, listSize int, list ...int) {
+func heapify(parentNum int, listSize int, list []int) {
 	/*
 		list(parentNum)が親
 		list(childLeft)が左の子
@@ -74,6 +74,6 @@ func heapify(parentNum int, listSize int, list ...int) {
 		// 親より子の方が大きいため、親と子の値を入れ替える
 		list[parentNum], list[largest] = list[largest], list[parentNum]
 
-		heapify(largest, listSize, list...)
+		heapify(largest, listSize, list)
 	}
 }
